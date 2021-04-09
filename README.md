@@ -3,7 +3,7 @@
 ## Description
 
 The purpose of the project is using the basic features of Apache Kafka.<br>
-For that I created two Microservices (Web API) projects inside the solution:
+For that I created two Microservices (Web API) projects using .Net Core 3.1:
 
 1) Producer 
 <br><br>
