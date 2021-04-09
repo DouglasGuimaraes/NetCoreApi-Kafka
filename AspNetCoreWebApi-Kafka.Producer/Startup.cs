@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace AspNetCoreWebApi_Kafka.Producer
 {
@@ -27,7 +28,9 @@ namespace AspNetCoreWebApi_Kafka.Producer
         public void ConfigureServices(IServiceCollection services)
         {
             ConfigureKafka(ref services);
-            services.AddControllers();
+            services
+                .AddControllers()
+                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore); ;
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Kafka Producer API", Version = "v1" });
