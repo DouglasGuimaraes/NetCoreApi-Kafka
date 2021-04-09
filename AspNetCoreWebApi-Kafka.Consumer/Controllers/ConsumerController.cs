@@ -27,10 +27,10 @@ namespace AspNetCoreWebApiKafka.Consumer.Controllers
                     consumer.Subscribe(topic);
                     var consumeResult = consumer.Consume(20000);
 
-                    // Logic ...
-
                     if (consumeResult != null)
                     {
+                        // TODO Logic ...
+
                         consumer.Commit(consumeResult);
                         result = new ConsumerResponse(consumeResult.Message.Value);
                         return Ok(result);
