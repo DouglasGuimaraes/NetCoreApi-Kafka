@@ -25,27 +25,33 @@ namespace AspNetCoreWebApiKafka.Consumer.Controllers
                 using (var consumer = new ConsumerBuilder<Null, string>(_config).Build())
                 {
                     consumer.Subscribe(topic);
-                    var consumeResult = consumer.Consume();
+                    var consumeResult = consumer.Consume(20000);
 
                     // Logic ...
 
-                    consumer.Commit(consumeResult);
-                    
-                    result = new ConsumerResponse(consumeResult.Message.Value);
-                    
-                    return Ok(result);
+                    if (consumeResult != null)
+                    {
+                        consumer.Commit(consumeResult);
+                        result = new ConsumerResponse(consumeResult.Message.Value);
+                        return Ok(result);
+                    }
+                    else
+                    {
+                        result = new ConsumerResponse("No messages to retrieve.");
+                        return NotFound(result);
+                    }
                 }
             }
             catch (ConsumeException ex)
-            {   
+            {
                 result = new ConsumerResponse(ex);
                 return BadRequest(result);
-            } 
+            }
             catch (System.Exception ex)
-            {   
+            {
                 result = new ConsumerResponse(ex);
                 return BadRequest(result);
-            }   
+            }
         }
     }
 }
