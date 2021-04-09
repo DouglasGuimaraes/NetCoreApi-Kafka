@@ -19,20 +19,23 @@ namespace AspNetCoreWebApiKafka.Producer.Controllers
         [HttpPost("Send")]
         public async Task<ActionResult> Send(string topic, [FromBody] ProducerParameter parameter)
         {
+            ProducerResponse result;
             string parameterJson = JsonConvert.SerializeObject(parameter);
             using (var producer = new ProducerBuilder<Null, string>(_config).Build())
             {
                 try
                 {
-                    await producer.ProduceAsync(topic, new Message<Null, string> { Value = parameterJson });
-                    producer.Flush(TimeSpan.FromSeconds(10));
-                    return Ok(true);
-                }
-                catch (System.Exception ex)
-                {
-                    throw ex;
-                }
+                    var produceAsyncResponse = await producer.ProduceAsync(topic, new Message<Null, string> { Value = parameterJson });
+                    result = new ProducerResponse(produceAsyncResponse.Message.Value);
 
+                    producer.Flush(TimeSpan.FromSeconds(10));
+                    return Ok(result);
+                }
+                catch (Exception ex)
+                {
+                    result = new ProducerResponse(ex);
+                    return BadRequest(result);
+                }
             }
         }
     }

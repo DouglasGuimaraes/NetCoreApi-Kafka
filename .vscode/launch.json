@@ -8,7 +8,7 @@
             "OS-COMMENT1": "Use IntelliSense to find out which attributes exist for C# debugging",
             "OS-COMMENT2": "Use hover for the description of the existing attributes",
             "OS-COMMENT3": "For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md",
-            "name": ".NET Core Launch (web)",
+            "name": ".NET Core Launch (Consumer)",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
@@ -16,6 +16,31 @@
             "program": "${workspaceFolder}/AspNetCoreWebApi-Kafka.Consumer/bin/Debug/netcoreapp3.1/AspNetCoreWebApi-Kafka.Consumer.dll",
             "args": [],
             "cwd": "${workspaceFolder}/AspNetCoreWebApi-Kafka.Consumer",
+            "stopAtEntry": false,
+            "OS-COMMENT5": "Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser",
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\\\bNow listening on:\\\\s+(https?://\\\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            }
+        },
+        {
+            "OS-COMMENT1": "Use IntelliSense to find out which attributes exist for C# debugging",
+            "OS-COMMENT2": "Use hover for the description of the existing attributes",
+            "OS-COMMENT3": "For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md",
+            "name": ".NET Core Launch (Producer)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "OS-COMMENT4": "If you have changed target frameworks, make sure to update the program path.",
+            "program": "${workspaceFolder}/AspNetCoreWebApi-Kafka.Producer/bin/Debug/netcoreapp3.1/AspNetCoreWebApi-Kafka.Producer.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/AspNetCoreWebApi-Kafka.Producer",
             "stopAtEntry": false,
             "OS-COMMENT5": "Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser",
             "serverReadyAction": {
