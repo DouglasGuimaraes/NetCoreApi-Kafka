@@ -16,6 +16,7 @@ namespace AspNetCoreWebApiKafka.Producer.Controllers
         {
             this._config = config;
         }
+
         [HttpPost("Send")]
         public async Task<ActionResult> Send(string topic, [FromBody] ProducerParameter parameter)
         {
