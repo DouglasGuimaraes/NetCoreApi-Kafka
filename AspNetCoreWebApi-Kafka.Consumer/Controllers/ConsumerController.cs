@@ -7,10 +7,14 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreWebApiKafka.Consumer.Controllers
 {
+
+
     [Route("api/[controller]")]
     [ApiController]
     public class ConsumerController : ControllerBase
     {
+
+        private const int _consumerTimeOut = 5000;
         private ConsumerConfig _config;
         public ConsumerController(ConsumerConfig config)
         {
@@ -25,7 +29,7 @@ namespace AspNetCoreWebApiKafka.Consumer.Controllers
                 using (var consumer = new ConsumerBuilder<Null, string>(_config).Build())
                 {
                     consumer.Subscribe(topic);
-                    var consumeResult = consumer.Consume(20000);
+                    var consumeResult = consumer.Consume(_consumerTimeOut);
 
                     if (consumeResult != null)
                     {
