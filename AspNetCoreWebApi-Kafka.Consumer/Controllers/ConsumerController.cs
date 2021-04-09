@@ -1,3 +1,4 @@
+using AspNetCoreWebApi_Kafka.Consumer.Models;
 using Confluent.Kafka;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -18,6 +19,7 @@ namespace AspNetCoreWebApiKafka.Consumer.Controllers
         [HttpPost("Messages")]
         public ActionResult Messages(string topic)
         {
+            ConsumerResponse result;
             try
             {
                 using (var consumer = new ConsumerBuilder<Null, string>(_config).Build())
@@ -28,18 +30,21 @@ namespace AspNetCoreWebApiKafka.Consumer.Controllers
                     // Logic ...
 
                     consumer.Commit(consumeResult);
-
-                    var jsonConsumerResponse = JsonConvert.SerializeObject(consumeResult);
-                    return Ok(jsonConsumerResponse);
+                    
+                    result = new ConsumerResponse(consumeResult.Message.Value);
+                    
+                    return Ok(result);
                 }
             }
             catch (ConsumeException ex)
             {   
-                throw ex;
+                result = new ConsumerResponse(ex);
+                return BadRequest(result);
             } 
             catch (System.Exception ex)
             {   
-                throw ex;
+                result = new ConsumerResponse(ex);
+                return BadRequest(result);
             }   
         }
     }
