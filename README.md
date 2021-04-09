@@ -23,8 +23,8 @@ Responsible for retrieving messages (ConsumerController) from the local Kafka Bo
 
 Following the Apacha Kafka Docker link, you will be able to have the container running inside Docker.
 If everything is working properly, you will be able to access the Apache Kafka Control Center: http://localhost:9021. <br><br>
-The only thing you need for calling the HTTP requests of the application is the Apache Kafka Topic, so create one inside the Control Center. 
-This topic will be passed as a parameter in the HTTP requests of the app.
+The only thing you need for calling the HTTP requests of the application is the Apache Kafka `topic`, so create one inside the Control Center. 
+This `topic` will be passed as a parameter in the HTTP requests of the app.
 <br><br>
 For each project, you can open your terminal/cmd and type: `dotnet run`
 <br><br>
